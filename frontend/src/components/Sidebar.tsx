@@ -3,15 +3,19 @@ import AddSpaceIcon from "../assets/icons/add-space-icon.tsx";
 import SavedIcon from "../assets/icons/saved-icon.tsx";
 import OptionsIcon from "../assets/icons/options-icon.tsx";
 import {useEffect, useState} from "react";
+import HideSidebarIcon from "../assets/icons/hide-sidebar-icon.tsx";
+import ExtendedSidebar from "./ExtendedSidebar.tsx";
 
 
 export default function Sidebar(){
     const [isOptionsOpened,setOptionsOpen] = useState(false);
     const [isThemesOpened,setThemesOpen] = useState(false);
+    const [isSidebarExtended,setSidebarExtended] = useState(false);
 
     const [theme,setTheme] = useState(
         localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
     );
+    console.log(theme);
 
     useEffect(() => {
         // Aplicar la clase de tema al elemento raíz
@@ -24,6 +28,10 @@ export default function Sidebar(){
         // Guardar el tema en localStorage
         localStorage.setItem("theme", theme);
     }, [theme]);
+
+    const extendSidebar = () => {
+        setSidebarExtended(!isSidebarExtended);
+    }
 
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
@@ -39,47 +47,57 @@ export default function Sidebar(){
 
     return (
         <>
-            <aside
-                className={"flex flex-start self-stretch w-[3.75rem] h-full flex-shrink-0 rounded-l-xl shadow light-mode-bg "}>{/*sidebar*/}
-                <div
-                    className={"flex flex-col items-center self-stretch gap-2.5 flex-1-0-0 sidebar-p"}> {/*sidebar-holder*/}
+            <div className={"flex rounded-2xl h-full w-fit flex-shrink-0"}>
+                <aside
+                    className={"flex flex-start self-stretch w-[3.75rem] h-full flex-shrink-0 rounded-2xl shadow-shadow bg-bg "}>{/*sidebar*/}
                     <div
-                        className={"bg-[#152437] w-[3.125rem] h-[3.125rem] items-center justify-center flex rounded-[1rem] flex-shrink-0"}>{/*Logo holder*/}
-                        <AppLogo color={"#FFFFFF"} width={"30"} height={"30"}/>
+                        className={"flex flex-col items-center self-stretch gap-2.5 flex-1-0-0 sidebar-p"}> {/*sidebar-holder*/}
+                        <div
+                            className={"bg-accent w-[3.125rem] h-[3.125rem] items-center justify-center flex rounded-[1rem] flex-shrink-0"}>{/*Logo holder*/}
+                            <AppLogo color={"var(--special-accent)"} width={"30"} height={"30"}/>
+                        </div>
+                        <div className={"flex flex-col items-center gap-2.5 self-stretch"}>
+                            <button className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                <AddSpaceIcon color={"var(--accent)"}/>
+                            </button>
+                            <button className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                <SavedIcon color={"var(--accent)"}/>
+                            </button>
+                            <button onClick={extendSidebar}
+                                    className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                <HideSidebarIcon color={"var(--accent)"}/>
+                            </button>
+                        </div>
+
+                        <div className={" bg-border w-full h-[4px] rounded-2xl"}/>
+
+                        <div className={"h-full inline-flex justify-end"}>
+
+                        </div>
+
+                        <div className={" bg-border w-full h-[4px] rounded-2xl"}/>
+
+                        <div className={"h-fit flex-col inline-flex justify-end items-center gap-2.5"}>
+
+                            <button onClick={handleOptionsClick}
+                                    className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                <OptionsIcon color={"var(--accent)"}/>
+                            </button>
+                        </div>
+
                     </div>
-                    <div className={"flex flex-col items-center gap-2.5 self-stretch"}>
-                        <button className={"button-layout button-style"}>
-                            <AddSpaceIcon/>
-                        </button>
-                        <button className={"button-layout button-style"}>
-                            <SavedIcon/>
-                        </button>
-                        <button className={"button-layout button-style"}></button>
-                    </div>
+                </aside>
 
-                    <div className={" bg-[#D4E9F7] w-full h-[4px] rounded-2xl"}/>
+                {isSidebarExtended && (<ExtendedSidebar/>)}
 
-                    <div className={"h-full inline-flex justify-end"}>
-
-                    </div>
-
-                    <div className={" bg-[#D4E9F7] w-full h-[4px] rounded-2xl"}/>
-
-                    <div className={"h-fit flex-col inline-flex justify-end items-center gap-2.5"}>
-
-                        <button onClick={handleOptionsClick} className={"button-layout button-style"}>
-                            <OptionsIcon/>
-                        </button>
-                    </div>
-
-                </div>
-            </aside>
+            </div>
 
             {isOptionsOpened && (
                 <div className={"absolute top-0 left-0 h-full w-full bg-black/25 flex items-center justify-center"}>
                     <div className={" w-[60rem] h-[35rem] bg-[#152437] rounded-2xl shadow flex flex-col items-start"}>
 
-                        <div className={"flex flex-row bg-black/25 rounded-t-2xl justify-items-center justify-end w-full"}>
+                        <div
+                            className={"flex flex-row bg-black/25 rounded-t-2xl justify-items-center justify-end w-full"}>
                             <button className={"close-button-layout close-button-style text-white m-2 "}
                                     onClick={() => setOptionsOpen(false)}>
                                 X
@@ -89,10 +107,9 @@ export default function Sidebar(){
                         <div className={"w-full h-full flex flex-row"}>
 
                             <div className={"flex flex-col bg-white/25 rounded-bl-2xl h-full w-1/4"}>
-                                <div className={"flex items-start border-b-2 border-white bg-black/25"}>
-                                    <label className={"w-full text-white m-2 font-['Inter'] text-xl "}>Settings</label>
+                                <div className={"flex items-start border-b-2 border-border bg-black/25"}>
+                                    <label className={"w-full text-accent m-2 font-['Inter'] text-xl "}>Settings</label>
                                 </div>
-
 
 
                                 <div

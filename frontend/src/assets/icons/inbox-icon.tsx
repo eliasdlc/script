@@ -2,7 +2,7 @@
 
 export default function InboxIcon({color = "currentColor"}) {
     return (
-        <svg width="15" height="14" viewBox="0 0 15 14" fill={color} xmlns="http://www.w3.org/2000/svg">
+        <svg width="15" height="14" viewBox="0 0 15 14" fill={color} className={color} xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M1.875 2H13.125C13.2908 2 13.4497 1.93415 13.5669 1.81694C13.6842 1.69973 13.75 1.54076 13.75 1.375C13.75 1.20924 13.6842 1.05027 13.5669 0.933058C13.4497 0.815848 13.2908 0.75 13.125 0.75H1.875C1.70924 0.75 1.55027 0.815848 1.43306 0.933058C1.31585 1.05027 1.25 1.20924 1.25 1.375C1.25 1.54076 1.31585 1.69973 1.43306 1.81694C1.55027 1.93415 1.70924 2 1.875 2Z"
                 fill={color}/>
