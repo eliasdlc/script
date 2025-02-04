@@ -9,29 +9,35 @@ import LastProjectsIcon from "../assets/icons/last-projects-icon.tsx";
 
 export default function ExtendedSidebar(){
 
+    const addPage = () => {
+        // Add a page
+
+    }
+
     /*
     * When a page or folder is gonna be added, it should automatically open it and add a default title
-    * allowing the user change it if they want to.*/
+    * allowing the user change it if they want to.
+    * */
 
     return (
         <div className={"flex flex-col  rounded-r-2xl flex-start p-2.5 gap-2.5 h-full w-full "}>
             <div className={"h-[57.50px] w-full justify-center items-center gap-2.5 inline-flex flex-shrink-0"}>
                 <button
-                    className={"extended-sidebar-buttons-layout border-2 border-widgets-border bg-accent general-shadow-shadow"}>
+                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-widgets-border bg-accent general-shadow-shadow"}>
                     <SearchIcon color={"special-icon-color"}/>
                 </button>
-                <button
-                    className={"extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                <button onClick={addPage}
+                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
                     <AddPageIcon color={"icon-color"}/>
                 </button>
 
                 <button
-                    className={"extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
                     <AddFolderIcon color={"icon-color"}/>
                 </button>
 
                 <button
-                    className={"extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
                     <HideSidebarIcon color={"icon-color"}/>
                 </button>
 
@@ -97,5 +103,5 @@ export default function ExtendedSidebar(){
                 </div>
             </div>
         </div>
-    )
+    );
 }

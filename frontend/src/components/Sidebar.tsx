@@ -49,7 +49,7 @@ export default function Sidebar(){
         <>
             <div className={"flex rounded-2xl h-full w-fit flex-shrink-0"}>
                 <aside
-                    className={"flex flex-start self-stretch w-[3.75rem] h-full flex-shrink-0 rounded-2xl shadow-shadow bg-bg "}>{/*sidebar*/}
+                    className={"flex flex-start self-stretch w-[3.75rem] h-full flex-shrink-0 rounded-2xl bg-bg "}>{/*sidebar*/}
                     <div
                         className={"flex flex-col items-center self-stretch gap-2.5 flex-1-0-0 sidebar-p"}> {/*sidebar-holder*/}
                         <div
@@ -57,14 +57,14 @@ export default function Sidebar(){
                             <AppLogo color={"var(--special-accent)"} width={"30"} height={"30"}/>
                         </div>
                         <div className={"flex flex-col items-center gap-2.5 self-stretch"}>
-                            <button className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                            <button className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
                                 <AddSpaceIcon color={"var(--accent)"}/>
                             </button>
-                            <button className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                            <button className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
                                 <SavedIcon color={"var(--accent)"}/>
                             </button>
                             <button onClick={extendSidebar}
-                                    className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                    className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
                                 <HideSidebarIcon color={"var(--accent)"}/>
                             </button>
                         </div>
@@ -80,7 +80,7 @@ export default function Sidebar(){
                         <div className={"h-fit flex-col inline-flex justify-end items-center gap-2.5"}>
 
                             <button onClick={handleOptionsClick}
-                                    className={"button-layout border-2 border-border bg-bg shadow-shadow"}>
+                                    className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
                                 <OptionsIcon color={"var(--accent)"}/>
                             </button>
                         </div>
@@ -93,12 +93,12 @@ export default function Sidebar(){
             </div>
 
             {isOptionsOpened && (
-                <div className={"absolute top-0 left-0 h-full w-full bg-black/25 flex items-center justify-center"}>
-                    <div className={" w-[60rem] h-[35rem] bg-[#152437] rounded-2xl shadow flex flex-col items-start"}>
+                <div className={"absolute top-0 left-0 h-full w-full bg-black/25 backdrop-blur-sm flex items-center justify-center"}>
+                    <div className={" w-[60rem] h-[35rem] bg-[#152437] rounded-2xl flex flex-col items-start"}>
 
                         <div
                             className={"flex flex-row bg-black/25 rounded-t-2xl justify-items-center justify-end w-full"}>
-                            <button className={"close-button-layout close-button-style text-white m-2 "}
+                            <button className={"close-button-layout close-button-style text-white m-2 font-['Inter'] text-xl"}
                                     onClick={() => setOptionsOpen(false)}>
                                 X
                             </button>

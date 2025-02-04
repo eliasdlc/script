@@ -12,6 +12,7 @@ export default {
         'bg': 'var(--bg-color)',
         'accent': 'var(--accent)',
         'special-accent': 'var(--special-accent)',
+        'lighter-accent': 'var(--lighter-accent)',
         'widgets-bg': 'var(--widgets-bg)',
         'special-widgets-bg': 'var(--special-widgets-bg)',
         'icon': 'var(--icon-color)',
@@ -19,12 +20,14 @@ export default {
         'border': 'var(--border-color)',
         'tab-bg': 'var(--tab-bg)',
         'tab-active': 'var(--tab-active)',
+        'tab-inactive': 'var(--tab-inactive)',
       },
       backgroundImage: {
         'extended-sidebar-bg': 'var(--extended-sidebar-bg)',
       },
       boxShadow: {
-        'shadow': 'shadow'
+        'shadow': 'var(--shadow)',
+        'hover-shadow': 'var(--hover-shadow)',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

@@ -118,16 +118,19 @@
 .dark{
     --bg-color: #152437;
     --accent: #D4E9F7;
+    --lighter-accent: rgba(212, 233, 247, 0.25);
     --special-accent: #152437;
     --widgets-bg: #152437;
     --special-widgets-bg: #F7FCFF;
     --icon-color: #D5E5EE;
     --special-icon-color: #152437;
     --border-color: #264165;
-    --shadow: 0px 4px 8px 0px rgba(31, 53, 81);
+    --shadow: 0px 4px 10px 0px #1F3551;
+    --hover-shadow: 0px 4px 10px 0px rgba(49, 79, 117, 0.75);
     --extended-sidebar-bg: radial-gradient(172.33% 141.42% at 0% 0%, #5275A3 0%, #263C5A 17.9%, #152437 51.4%, #263C5A 88.4%);
     --tab-bg: #152437;
     --tab-active: #d4e9f6;
+    --tab-inactive: #152437;
 }
 
 .light{
