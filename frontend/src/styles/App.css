@@ -114,7 +114,6 @@
     fill: var(--special-icon-color);
 }
 
-
 .dark{
     --bg-color: #152437;
     --accent: #D4E9F7;
@@ -142,4 +141,31 @@
     --special-icon-color: #D5E5EE;
     --border-color: #FFFFFF;
     --shadow: 0px 0px 8px 0px rgba(192, 201, 216, 0.50);
+}
+
+/* Slide animation for the extended sidebar */
+.sidebar-extended {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+    z-index: 0;
+}
+
+.sidebar-collapsed {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 0;
+}
+
+.index-1 {
+    z-index: 1;
+}
+
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.absolute {
+    position: absolute;
 }

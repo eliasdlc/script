@@ -4,34 +4,45 @@ import SavedIcon from "../assets/icons/saved-icon.tsx";
 import OptionsIcon from "../assets/icons/options-icon.tsx";
 import {useEffect, useState} from "react";
 import HideSidebarIcon from "../assets/icons/hide-sidebar-icon.tsx";
-import ExtendedSidebar from "./ExtendedSidebar.tsx";
-
+import SearchIcon from "../assets/icons/search-icon.tsx";
+import AddPageIcon from "../assets/icons/add-page-icon.tsx";
+import AddFolderIcon from "../assets/icons/add-folder-icon.tsx";
+import SpaceHierachyIcon from "../assets/icons/space-hierachy-icon.tsx";
+import StarIcon from "../assets/icons/star-icon.tsx";
+import InboxIcon from "../assets/icons/inbox-icon.tsx";
+import LastProjectsIcon from "../assets/icons/last-projects-icon.tsx";
+import '../styles/App.css'
 
 export default function Sidebar(){
-    const [isOptionsOpened,setOptionsOpen] = useState(false);
-    const [isThemesOpened,setThemesOpen] = useState(false);
-    const [isSidebarExtended,setSidebarExtended] = useState(false);
+    const [isOptionsOpened, setOptionsOpen] = useState(false);
+    const [isThemesOpened, setThemesOpen] = useState(false);
+    const [isSidebarExtended, setSidebarExtended] = useState(false);
+    const [isExtendedVisible, setIsExtendedVisible] = useState(false);
 
-    const [theme,setTheme] = useState(
+    const [theme, setTheme] = useState(
         localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
     );
-    console.log(theme);
-
-    useEffect(() => {
-        // Aplicar la clase de tema al elemento raíz
-        const root = window.document.documentElement;
-        if (theme === "dark") {
-            root.classList.add("dark");
-        } else {
-            root.classList.remove("dark");
-        }
-        // Guardar el tema en localStorage
-        localStorage.setItem("theme", theme);
-    }, [theme]);
 
     const extendSidebar = () => {
+        if (!isSidebarExtended) {
+            setIsExtendedVisible(true);
+        }
         setSidebarExtended(!isSidebarExtended);
+
+        if (isSidebarExtended) {
+            setTimeout(() => setIsExtendedVisible(false), 300);
+        }
+    };
+
+    const addPage = () => {
+        // Add a page
     }
+
+    useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.toggle("dark", theme === "dark");
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
@@ -47,59 +58,173 @@ export default function Sidebar(){
 
     return (
         <>
-            <div className={"flex rounded-2xl h-full w-fit flex-shrink-0"}>
-                <aside
-                    className={"flex flex-start self-stretch w-[3.75rem] h-full flex-shrink-0 rounded-2xl bg-bg "}>{/*sidebar*/}
-                    <div
-                        className={"flex flex-col items-center self-stretch gap-2.5 flex-1-0-0 sidebar-p"}> {/*sidebar-holder*/}
-                        <div
-                            className={"bg-accent w-[3.125rem] h-[3.125rem] items-center justify-center flex rounded-[1rem] flex-shrink-0"}>{/*Logo holder*/}
-                            <AppLogo color={"var(--special-accent)"} width={"30"} height={"30"}/>
-                        </div>
-                        <div className={"flex flex-col items-center gap-2.5 self-stretch"}>
-                            <button className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
-                                <AddSpaceIcon color={"var(--accent)"}/>
-                            </button>
-                            <button className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
-                                <SavedIcon color={"var(--accent)"}/>
-                            </button>
-                            <button onClick={extendSidebar}
-                                    className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
-                                <HideSidebarIcon color={"var(--accent)"}/>
-                            </button>
+            <div className={`flex rounded-2xl h-full flex-shrink-0 bg-extended-sidebar-bg 
+                transition-all duration-300 overflow-hidden ${
+                isSidebarExtended ? "w-[340px]" : "w-[3.75rem]"
+            }`}>
+
+                {/* Main Sidebar */}
+                <aside className={`flex flex-col items-center self-stretch h-full flex-shrink-0 rounded-2xl bg-bg 
+                    transition-all duration-300 ${
+                    isSidebarExtended ? "w-[3.75rem] z-10" : "w-[3.75rem] z-10"
+                }`}>
+
+                    <div className="flex flex-col items-center self-stretch gap-2.5 flex-1 p-2">
+                        <div className="bg-accent w-[3.125rem] h-[3.125rem] flex items-center justify-center rounded-[1rem]">
+                            <AppLogo color="special-icon-color" width="30" height="30"/>
                         </div>
 
-                        <div className={" bg-border w-full h-[4px] rounded-2xl"}/>
+                        {isSidebarExtended ? (
+                            <div className="flex flex-col items-center gap-2.5 self-stretch">
+                                <button className="button-layout border-2 border-border bg-bg hover:shadow-shadow">
+                                    <AddSpaceIcon color="icon-color"/>
+                                </button>
+                                <button className="button-layout border-2 border-border bg-bg hover:shadow-shadow">
+                                    <SavedIcon color="icon-color"/>
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center gap-2.5 self-stretch">
+                                <button
+                                    className="hover:shadow-hover-shadow button-layout border-2 border-widgets-border bg-accent general-shadow-shadow">
+                                    <SearchIcon color="special-icon-color"/>
+                                </button>
+                                <button
+                                    className="hover:shadow-hover-shadow button-layout border-2 border-border bg-bg general-shadow-shadow">
+                                    <AddPageIcon color="icon-color"/>
+                                </button>
+                                <button
+                                    className="hover:shadow-hover-shadow button-layout border-2 border-border bg-bg general-shadow-shadow">
+                                    <AddFolderIcon color="icon-color"/>
+                                </button>
+                                <button onClick={extendSidebar}
+                                        className="hover:shadow-hover-shadow button-layout border-2 border-border bg-bg general-shadow-shadow">
+                                    <HideSidebarIcon color="icon-color"/>
+                                </button>
+                                <button className="button-layout border-2 border-border bg-bg hover:shadow-shadow">
+                                    <AddSpaceIcon color="icon-color"/>
+                                </button>
+                                <button className="button-layout border-2 border-border bg-bg hover:shadow-shadow">
+                                    <SavedIcon color="icon-color"/>
+                                </button>
+                            </div>
+                        )}
 
-                        <div className={"h-full inline-flex justify-end"}>
+                        <div className="bg-border w-full h-[4px] rounded-2xl"/>
 
-                        </div>
+                        <div className="flex-1"/>
 
-                        <div className={" bg-border w-full h-[4px] rounded-2xl"}/>
+                        <div className="bg-border w-full h-[4px] rounded-2xl"/>
 
-                        <div className={"h-fit flex-col inline-flex justify-end items-center gap-2.5"}>
-
-                            <button onClick={handleOptionsClick}
-                                    className={"button-layout border-2 border-border bg-bg hover:shadow-shadow"}>
-                                <OptionsIcon color={"var(--accent)"}/>
+                        <div className="h-fit flex-col inline-flex justify-end items-center gap-2.5">
+                            <button onClick={handleOptionsClick} className="button-layout border-2 border-border bg-bg hover:shadow-shadow">
+                                <OptionsIcon color="icon-color"/>
                             </button>
                         </div>
-
                     </div>
                 </aside>
 
-                {isSidebarExtended && (<ExtendedSidebar/>)}
+                {isExtendedVisible && (
+                    <div className={"flex flex-col  rounded-r-2xl flex-start p-2.5 gap-2.5 h-full w-full " +
+                        `${isSidebarExtended ? "sidebar-extended" : "sidebar-collapsed"}`}>
+                        <div
+                            className={"h-[57.50px] w-full justify-center items-center gap-2.5 inline-flex flex-shrink-0"}>
+                            <button
+                                className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-widgets-border bg-accent general-shadow-shadow"}>
+                                <SearchIcon color={"special-icon-color"}/>
+                            </button>
+                            <button onClick={addPage}
+                                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                <AddPageIcon color={"icon-color"}/>
+                            </button>
+
+                            <button
+                                className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                <AddFolderIcon color={"icon-color"}/>
+                            </button>
+
+                            <button onClick={extendSidebar}
+                                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                <HideSidebarIcon color={"icon-color"}/>
+                            </button>
+
+                        </div>
+                        <div
+                            className={"w-full h-full flex-col justify-start items-start gap-2.5 inline-flex rounded-2xl overflow-y-auto example"}>
+                            <div
+                                className={" min-h-[300px] w-full p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-start items-start gap-2.5 inline-flex"}>
+                                <div className={"justify-start items-center flex gap-1"}>
+                                    <SpaceHierachyIcon color={"icon-color"}/>
+                                    <label className={" font-semibold text-accent font-['Inter']"}>Space
+                                        Hierachy</label>
+                                </div>
+                                <div> {/*hierachy table*/}
+
+                                </div>
+
+                            </div>
+                            <div
+                                className={"w-full h-fit p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-center items-start gap-1 inline-flex"}>
+                                <div className={"justify-start items-center flex gap-1"}>
+                                    <StarIcon color={"icon-color"}/>
+                                    <label className={" font-semibold text-accent font-['Inter']"}>Favorite
+
+                                    </label>
+                                </div>
+                            </div>
+                            <div
+                                className={"w-full h-fit p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-center items-start gap-1 inline-flex"}>
+                                <div className={"justify-start items-center flex gap-1"}>
+                                    <InboxIcon color={"icon-color"}/>
+                                    <label className={" font-semibold text-accent font-['Inter']"}>Inbox
+
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div
+                                className={" min-h-[233.75px] w-full p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-start items-start gap-2.5 inline-flex"}>
+                                <div className={"justify-start items-center flex gap-1"}>
+                                    <LastProjectsIcon color={"icon-color"}/>
+                                    <label className={" font-semibold text-accent font-['Inter']"}>Last Projects
+
+                                    </label>
+                                </div>
+                                <div> {/*latest porjects*/}
+
+                                </div>
+
+                            </div>
+
+                            <div
+                                className={" min-h-[233.75px] w-full p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-start items-start gap-2.5 inline-flex"}>
+                                <div className={"justify-start items-center flex gap-1"}>
+
+                                    <label className={" font-bold text-[#152437] font-['Inter']"}>Last Projects
+
+                                    </label>
+                                </div>
+                                <div> {/*latest porjects*/}
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                )}
 
             </div>
 
             {isOptionsOpened && (
-                <div className={"absolute top-0 left-0 h-full w-full bg-black/25 backdrop-blur-sm flex items-center justify-center"}>
+                <div
+                    className={"absolute top-0 left-0 h-full w-full bg-black/25 backdrop-blur-sm flex items-center justify-center"}>
                     <div className={" w-[60rem] h-[35rem] bg-[#152437] rounded-2xl flex flex-col items-start"}>
 
                         <div
                             className={"flex flex-row bg-black/25 rounded-t-2xl justify-items-center justify-end w-full"}>
-                            <button className={"close-button-layout close-button-style text-white m-2 font-['Inter'] text-xl"}
-                                    onClick={() => setOptionsOpen(false)}>
+                            <button
+                                className={"close-button-layout close-button-style text-white m-2 font-['Inter'] text-xl"}
+                                onClick={() => setOptionsOpen(false)}>
                                 X
                             </button>
                         </div>
@@ -128,20 +253,25 @@ export default function Sidebar(){
 
                             <div className={"flex w-10/12 h-full "}>
                                 {isThemesOpened && (
-                                    <div className={"flex flex-col items-start justify-start w-full h-full overflow-y-auto"}>
+                                    <div
+                                        className={"flex flex-col items-start justify-start w-full h-full overflow-y-auto"}>
                                         <div className={"flex flex-col justify-start m-2 items-start w-full"}>
-                                            <button onClick={toggleTheme} className={" text-white  font-semibold font-['Inter'] text-l"}>Dark</button>
+                                            <button onClick={toggleTheme}
+                                                    className={" text-white  font-semibold font-['Inter'] text-l"}>Dark
+                                            </button>
                                             <p className={" text-white/75 text-sm font-thin font-['Inter']"}>
                                                 Enjoy Script with a dark theme that's easy on the eyes.
                                             </p>
                                         </div>
 
                                         <div className={"flex flex-col justify-start m-2 items-start w-full"}>
-                                        <button className={" text-white  font-semibold font-['Inter'] text-l"}>Light</button>
-                                        <p className={" text-white/75 text-sm font-thin font-['Inter']"}>
-                                            Enjoy Script with a light theme that's both pretty and readable.
-                                        </p>
-                                    </div>
+                                            <button
+                                                className={" text-white  font-semibold font-['Inter'] text-l"}>Light
+                                            </button>
+                                            <p className={" text-white/75 text-sm font-thin font-['Inter']"}>
+                                                Enjoy Script with a light theme that's both pretty and readable.
+                                            </p>
+                                        </div>
 
                                     </div>
                                 )}
