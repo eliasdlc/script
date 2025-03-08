@@ -11,6 +11,7 @@ export default {
         // Mapeo de variables CSS
         'bg': 'var(--bg-color)',
         'accent': 'var(--accent)',
+        'transparent-accent': 'var(--transparent-accent)',
         'special-accent': 'var(--special-accent)',
         'lighter-accent': 'var(--lighter-accent)',
         'widgets-bg': 'var(--widgets-bg)',

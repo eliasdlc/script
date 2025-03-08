@@ -117,6 +117,7 @@
 .dark{
     --bg-color: #152437;
     --accent: #D4E9F7;
+    --transparent-accent: rgba(212, 233, 247, 0.25);
     --lighter-accent: rgba(212, 233, 247, 0.25);
     --special-accent: #152437;
     --widgets-bg: #152437;
@@ -169,3 +170,7 @@
 .absolute {
     position: absolute;
 }
+
+/* Fix para Firefox */
+
+
