@@ -1,4 +1,5 @@
- import {ReactNode, useEffect, useRef, useState} from 'react';
+import {ReactNode, useEffect, useRef, useState} from 'react';
+import FloatingMenu from "./FloatingMenu.tsx";
 
 interface CustomTextSectionProps {
     title?: string;
@@ -44,26 +45,14 @@ const CustomTextSection = ({
     }, [titleValue, subtitleValue, textValue]);
 
     return (
-        <div className={`flex flex-col w-full bg-accent ${className}`}>
-            <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-                <div
-                    className="flex flex-row gap-2 h-fit w-fit bg-bg bg-opacity-80 backdrop-blur-sm p-2 rounded-2xl border-2 border-accent">
-                    <button
-                        className="h-10 w-10 bg-accent/20 hover:bg-accent/30 rounded-lg border-2 border-accent transition-colors duration-150"></button>
-                    <button
-                        className="h-10 w-10 bg-accent/20 hover:bg-accent/30 rounded-lg border-2 border-accent transition-colors duration-150"></button>
-                    <button
-                        className="h-10 w-10 bg-accent/20 hover:bg-accent/30 rounded-lg border-2 border-accent transition-colors duration-150"></button>
-                    <button
-                        className="h-10 w-10 bg-accent/20 hover:bg-accent/30 rounded-lg border-2 border-accent transition-colors duration-150"></button>
-                    <button
-                        className="h-10 w-10 bg-accent/20 hover:bg-accent/30 rounded-lg border-2 border-accent transition-colors duration-150"></button>
-                </div>
+        <div className={`flex flex-col justify-center w-full bg-transparent-accent ${className} relative min-h-screen`}>
+            <div className="relative w-full max-w-6xl mx-auto">
+                <FloatingMenu/>
             </div>
             <div className={"w-full min-h-[250px] max-h-[250px] bg-accent"}></div>
             {/* Sección de cabecera */}
             <div
-                className={"pl-5 pr-5 pt-5 ml-5 mr-5 mt-5 mb-20 rounded-xl bg-bg backdrop-blur-xl h-auto border-2 border-accent"}>
+                className={"pl-5 pr-5 pt-5 ml-5 mr-5 mt-5 rounded-xl bg-bg backdrop-blur-xl h-auto border-2 border-transparent-accent"}>
                 <div>
                     <div className="">
                         <label className={"justify-center text-transparent-accent text-sm font-inter font-bold"}>
@@ -76,7 +65,7 @@ const CustomTextSection = ({
                             placeholder="Título de la página"
                             className="flex flex-row aling-center justify-center w-full font-inter text-5xl text-accent rounded-[5px] font-bold bg-transparent border-0 outline-none resize-none appearance-none
                     p-0 placeholder:text-white/25 focus:p-2 focus:bg-white/5 duration-150 ease-in-out"
-                    />
+                        />
                     </div>
 
                     {isSubtitle && (
@@ -116,7 +105,7 @@ const CustomTextSection = ({
                         adjustHeight(textRef.current);
                     }}
                     placeholder={textareaPlaceholder}
-                    className="w-full h-full bg-transparent border-0 outline-none resize-none appearance-none mb-5 text-accent placeholder:text-gray-400"
+                    className="w-full h-full bg-transparent border-0 outline-none resize-none appearance-none mb-[75px] text-accent placeholder:text-gray-400"
                     style={{minHeight: '300px'}}
                 />
 

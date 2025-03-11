@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* En tu archivo CSS global (ej: App.css) */
+::selection {
+    background: rgba(197, 206, 255, 0.25); /* Color de fondo de la selección */
+    color: #ffffff; /* Color del texto seleccionado */
+    caret-shape: underscore;
+    caret-color: #b00f0f;
+}
 
+/* Para Firefox */
+::-moz-selection {
+    background: rgba(197, 206, 255, 0.25);
+    color: #ffffff;
+    caret-shape: underscore;
+    caret-color: #b00f0f;
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .example::-webkit-scrollbar {
