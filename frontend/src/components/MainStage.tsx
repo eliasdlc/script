@@ -38,7 +38,7 @@ export default function MainStage(){
                     <HomeIcon color={"var(--special-accent)"}></HomeIcon>
                 </button>
 
-                <div className={"flex flex-start rounded-t-2xl w-full h-[3.125rem] pl-3 pr-3 gap-2.5 overflow-auto example ease-in-out duration-100"}>
+                <div className={"flex flex-row flex-start rounded-t-2xl w-full h-[3.125rem] pl-3 pr-3 gap-2.5 overflow-auto snap-x snap-mandatory example ease-in-out duration-100"}>
                     {pageData.map((page) => (
                         <Tab
                             key={page.id}

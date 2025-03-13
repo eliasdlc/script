@@ -1,5 +1,6 @@
 import {ReactNode, useEffect, useRef, useState} from 'react';
 import FloatingMenu from "./FloatingMenu.tsx";
+import TextWidth from "../assets/icons/text-width.tsx";
 
 interface CustomTextSectionProps {
     title?: string;
@@ -26,10 +27,15 @@ const CustomTextSection = ({
     const [subtitleValue, setSubtitleValue] = useState(subtitle);
     const [textValue, setTextValue] = useState(text || "");
     const [isSubtitle, setIsSubtitle] = useState(false);
+    const [isFatWidth, setIsFatWidth] = useState(false);
 
     const titleRef = useRef<HTMLTextAreaElement>(null);
     const subtitleRef = useRef<HTMLTextAreaElement>(null);
     const textRef = useRef<HTMLTextAreaElement>(null);
+
+    const extendWidth = () => {
+        setIsFatWidth(!isFatWidth);
+    }
 
     const adjustHeight = (element: HTMLTextAreaElement | null) => {
         if (element) {
@@ -45,14 +51,18 @@ const CustomTextSection = ({
     }, [titleValue, subtitleValue, textValue]);
 
     return (
-        <div className={`flex flex-col justify-center w-full bg-transparent-accent ${className} relative min-h-screen`}>
+        <div className={`flex flex-col justify-center w-full ${className}`}>
             <div className="relative w-full max-w-6xl mx-auto">
                 <FloatingMenu/>
             </div>
             <div className={"w-full min-h-[250px] max-h-[250px] bg-accent"}></div>
+
             {/* Sección de cabecera */}
             <div
-                className={"pl-5 pr-5 pt-5 ml-5 mr-5 mt-5 rounded-xl bg-bg backdrop-blur-xl h-auto border-2 border-transparent-accent"}>
+                className={`pl-5 pr-5 pt-5 ${isFatWidth ? "ml-60 mr-60" : "ml-10 mr-10"} mt-5 rounded-xl bg-bg backdrop-blur-xl h-auto `}>
+                <button onClick={extendWidth} className={"fixed flex justify-center items-center right-1 top-5 bg-transparent-accent border-accent border-2 w-10 h-10 rounded-xl"}>
+                    <TextWidth className={"hover:shadow-accent shadow-accent shadow-2xl "} color={"var(--accent)"}  height={"20px"} width={"20px"}></TextWidth>
+                </button>
                 <div>
                     <div className="">
                         <label className={"justify-center text-transparent-accent text-sm font-inter font-bold"}>

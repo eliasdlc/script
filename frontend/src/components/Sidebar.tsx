@@ -150,7 +150,7 @@ export default function Sidebar(){
 
                         </div>
                         <div
-                            className={"w-full h-full flex-col justify-start items-start gap-2.5 inline-flex rounded-2xl overflow-y-auto example"}>
+                            className={"w-full h-full flex-col justify-start items-start gap-2.5 inline-flex rounded-2xl overflow-y-auto snap-y snap-mandatory example"}>
                             <div
                                 className={" min-h-[300px] w-full p-2.5 bg-bg border-2 border-border rounded-2xl general-shadow-shadow flex-col justify-start items-start gap-2.5 inline-flex"}>
                                 <div className={"justify-start items-center flex gap-1"}>
