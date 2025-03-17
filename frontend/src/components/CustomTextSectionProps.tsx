@@ -59,13 +59,13 @@ const CustomTextSection = ({
 
             {/* Sección de cabecera */}
             <div
-                className={`pl-5 pr-5 pt-5 ${isFatWidth ? "ml-60 mr-60" : "ml-10 mr-10"} mt-5 rounded-xl bg-bg backdrop-blur-xl h-auto `}>
+                className={`pl-5 pr-5 pt-5 ${isFatWidth ? "mx-auto max-w-4xl" : "mx-5 md:mx-10"} mt-5 rounded-xl bg-bg backdrop-blur-xl h-auto `}>
                 <button onClick={extendWidth} className={"fixed flex justify-center items-center right-1 top-5 bg-transparent-accent border-accent border-2 w-10 h-10 rounded-xl"}>
                     <TextWidth className={"hover:shadow-accent shadow-accent shadow-2xl "} color={"var(--accent)"}  height={"20px"} width={"20px"}></TextWidth>
                 </button>
                 <div>
                     <div className="">
-                        <label className={"justify-center text-transparent-accent text-sm font-inter font-bold"}>
+                        <label className={"justify-center text-border text-sm font-inter font-extrabold"}>
                             TITLE
                         </label>
                         <textarea

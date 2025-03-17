@@ -59,7 +59,7 @@ const FloatingMenu = () => {
     return (
         <div
             ref={menuRef}
-            className="fixed bottom-5 z-[9999] transition-all duration-300 "
+            className="fixed bottom-5 z-[2] transition-all duration-300 "
             style={{
                 left: leftPosition,
                 transform: 'translateX(-50%)'

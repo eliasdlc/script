@@ -2,7 +2,7 @@ import AppLogo from "../assets/icons/app-logo.tsx";
 import AddSpaceIcon from "../assets/icons/add-space-icon.tsx";
 import SavedIcon from "../assets/icons/saved-icon.tsx";
 import OptionsIcon from "../assets/icons/options-icon.tsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import HideSidebarIcon from "../assets/icons/hide-sidebar-icon.tsx";
 import SearchIcon from "../assets/icons/search-icon.tsx";
 import AddPageIcon from "../assets/icons/add-page-icon.tsx";
@@ -56,6 +56,23 @@ export default function Sidebar(){
         setThemesOpen(!isThemesOpened);
     }
 
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [isSearchExtended, setSearchExtended] = useState(false);
+
+    // 2. Función para manejar el enfoque
+    const handleSearchClick = () => {
+        if (!isSearchExtended) {
+            setSearchExtended(true);
+        }
+    };
+
+    // 3. Efecto para enfoque automático
+    useEffect(() => {
+        if (isSearchExtended && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isSearchExtended]);
+
     return (
         <>
             <div className={`flex rounded-2xl h-full flex-shrink-0 bg-extended-sidebar-bg 
@@ -87,7 +104,7 @@ export default function Sidebar(){
                             <div className="flex flex-col items-center gap-2.5 self-stretch">
                                 <button
                                     className="hover:shadow-hover-shadow button-layout border-2 border-widgets-border bg-accent general-shadow-shadow">
-                                    <SearchIcon color="special-icon-color"/>
+                                    <SearchIcon color="special-icon-color" />
                                 </button>
                                 <button
                                     className="hover:shadow-hover-shadow button-layout border-2 border-border bg-bg general-shadow-shadow">
@@ -128,25 +145,45 @@ export default function Sidebar(){
                     <div className={"flex flex-col  rounded-r-2xl flex-start p-2.5 gap-2.5 h-full w-full " +
                         `${isSidebarExtended ? "sidebar-extended" : "sidebar-collapsed"}`}>
                         <div
-                            className={"h-[57.50px] w-full justify-center items-center gap-2.5 inline-flex flex-shrink-0"}>
-                            <button
-                                className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-widgets-border bg-accent general-shadow-shadow"}>
+                            className={"h-[57.50px] w-full justify-start items-center gap-2.5 inline-flex flex-shrink-0 "}>
+
+                            <div onClick={handleSearchClick}
+                                className={`flex flex-row gap-2.5 hover:shadow-hover-shadow border-2 bg-accent general-shadow-shadow ease-in-out duration-150 
+                                        ${isSearchExtended
+                                        ? "extended-search-bar-layout"
+                                        : "extended-sidebar-buttons-layout border-widgets-border"}`}>
+
                                 <SearchIcon color={"special-icon-color"}/>
-                            </button>
-                            <button onClick={addPage}
-                                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
-                                <AddPageIcon color={"icon-color"}/>
-                            </button>
 
-                            <button
-                                className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
-                                <AddFolderIcon color={"icon-color"}/>
-                            </button>
+                                {isSearchExtended && (
+                                    <input
+                                        ref={inputRef}
+                                        className="w-full h-full bg-transparent border-0 outline-none caret-special-accent text-special-accent font-inter font-bold text-sm"
+                                        onBlur={() => setSearchExtended(false)} // 2. Cerrar al perder enfoque
+                                        onClick={(e) => e.stopPropagation()} // 3. Prevenir propagación
+                                        autoFocus // 1. Enfoque automático adicional
+                                    />
+                                )}
+                            </div>
 
-                            <button onClick={extendSidebar}
-                                    className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
-                                <HideSidebarIcon color={"icon-color"}/>
-                            </button>
+                            {!isSearchExtended && (
+                                <div className={"justify-center items-center gap-2.5 inline-flex flex-shrink-0"}>
+                                    <button onClick={addPage}
+                                            className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                        <AddPageIcon color={"icon-color"}/>
+                                    </button>
+
+                                    <button
+                                        className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                        <AddFolderIcon color={"icon-color"}/>
+                                    </button>
+
+                                    <button onClick={extendSidebar}
+                                            className={"hover:shadow-hover-shadow extended-sidebar-buttons-layout border-2 border-border bg-bg general-shadow-shadow"}>
+                                        <HideSidebarIcon color={"icon-color"}/>
+                                    </button>
+                                </div>
+                            )}
 
                         </div>
                         <div
@@ -217,7 +254,7 @@ export default function Sidebar(){
 
             {isOptionsOpened && (
                 <div
-                    className={"absolute top-0 left-0 h-full w-full bg-black/25 backdrop-blur-sm flex items-center justify-center"}>
+                    className={"absolute top-0 left-0 h-full w-full z-[11] bg-black/25 backdrop-blur-sm flex items-center justify-center"}>
                     <div className={" w-[60rem] h-[35rem] bg-[#152437] rounded-2xl flex flex-col items-start"}>
 
                         <div

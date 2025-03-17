@@ -4,11 +4,13 @@ import Tab from "./Tab.tsx";
 import FolderIcon from "../assets/icons/folder-icon.tsx";
 import PageIcon from "../assets/icons/page-icon.tsx";
 import {useState} from "react";
+import MenuBurger from "../assets/icons/menu-burger.tsx";
 
 
 export default function MainStage(){
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const pageData = [
         {id: 0, title: "The Jovian Fighter", subtitle: "A story about a fighter in the Jovian system", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget metus mollis, varius turpis quis, lobortis enim. Quisque mollis libero ac porttitor lobortis. Nulla facilisi. Nunc maximus cursus pharetra. Mauris egestas eu orci sed porttitor. Aliquam et mollis urna. Ut sed malesuada quam.\n" +
@@ -30,15 +32,39 @@ export default function MainStage(){
 
     const currentPageData = pageData.find(p => p.id === pageData[selectedTab].id);
 
+    const openMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
         <div className={"flex flex-col flex-start self-stretch rounded-2xl overflow-hidden w-full h-full"}>
+            <div
+                className={`fixed flex flex-col top-[74px] right-0 z-[12] 
+                ${isMenuOpen? 
+                    "w-[20%] h-[65%] items-start mr-6 rounded-xl" : 
+                    " items-center justify-center mt-2 w-10 h-[50px] rounded-l-xl hover:w-12 "}  
+                    border-border border-2 bg-special-accent ease-in-out duration-200`}>
+
+                <button onClick={openMenu} className={`${isMenuOpen? "flex flex-row gap-2 m-2 w-full" : ""}`}>
+                    <MenuBurger className="hover:shadow-accent shadow-accent shadow-2xl" color="var(--accent)"
+                                height="20px" width="20px"/>
+                    { isMenuOpen && (
+                        <label className={"justify-center text-accent text-sm font-inter font-extrabold"}>ACTIONS MENU</label>
+                )}
+
+                </button>
+
+
+
+            </div>
             <div className={"flex flex-row w-full h-[3.125rem] rounded-2xl gap-1 pl-3 pr-3"}>
                 <button
                     className={"min-w-[55px]  h-[50px] rounded-t-2xl border-l-2 border-r-2 border-t-2 border-accent bg-tab-active flex p-2 justify-center items-center"}>
                     <HomeIcon color={"var(--special-accent)"}></HomeIcon>
                 </button>
 
-                <div className={"flex flex-row flex-start rounded-t-2xl w-full h-[3.125rem] pl-3 pr-3 gap-2.5 overflow-auto snap-x snap-mandatory example ease-in-out duration-100"}>
+                <div
+                    className={"flex flex-row flex-start rounded-t-2xl w-full h-[3.125rem] pl-3 pr-3 gap-2.5 overflow-auto snap-x snap-mandatory example ease-in-out duration-100"}>
                     {pageData.map((page) => (
                         <Tab
                             key={page.id}
